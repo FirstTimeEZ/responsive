@@ -1,6 +1,14 @@
 # Responsive Website
 
-A simple responsive website made with pure `HTML` and `CSS` and `Javscript`
+A simple responsive website made with `HTML` and `CSS` and `Javscript`
+
+# Preview
+
+![preview](https://github.com/user-attachments/assets/585b558c-286f-4345-b32d-ab0357c61e79)
+
+# Responsive
+
+![responsive](https://github.com/user-attachments/assets/2672840e-4e02-44a2-9606-8d22c23bcaed)
 
 # Server
 
