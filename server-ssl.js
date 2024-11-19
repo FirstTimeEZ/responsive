@@ -13,13 +13,9 @@ const options = {};
 
 let optPk = null;
 let optCert = null;
-
-let PORT = process.env.PORT || 3000;
+let optPort = process.env.PORT || 3000;
 
 loadArguments();
-
-optPk = optPk !== null ? optPk : 'private-key.pem';
-optCert = optCert !== null ? optCert : 'certificate.pem';
 
 !existsSync(optPk) && certificateNotExist();
 !existsSync(optCert) && certificateNotExist();
@@ -102,12 +98,12 @@ const server = createServer(options, (req, res) => {
     });
 });
 
-server.listen(PORT, (err) => {
+server.listen(optPort, (err) => {
     if (err) {
         console.error('Error starting server:', err);
         return;
     }
-    console.log(`Server is running on https://localhost:${PORT}`);
+    console.log(`Server is running on https://localhost:${optPort}`);
 });
 
 function certificateNotExist() {
@@ -122,7 +118,7 @@ function loadArguments() {
     __args.forEach((e) => {
         let portArg = e.toLowerCase().includes("--port=") ? e.split("=")[1] : null
         if (portArg !== null) {
-            PORT = portArg;
+            optPort = portArg;
         }
 
         let certPath = e.toLowerCase().includes("--cert=") ? e.split("=")[1] : null
@@ -135,4 +131,7 @@ function loadArguments() {
             optPk = privateKeyPath;
         }
     });
+
+    !optPk && (optPk = 'private-key.pem');
+    !optCert && (optCert = 'certificate.pem');
 }
