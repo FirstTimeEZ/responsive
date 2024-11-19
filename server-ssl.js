@@ -120,17 +120,17 @@ function certificateNotExist() {
 
 function loadArguments() {
     __args.forEach((e) => {
-        let portArg = e.toLowerCase().includes("port") ? e.split("=")[1] : null
+        let portArg = e.toLowerCase().includes("--port=") ? e.split("=")[1] : null
         if (portArg !== null) {
             PORT = portArg;
         }
 
-        let certPath = e.toLowerCase().includes("cert") ? e.split("=")[1] : null
+        let certPath = e.toLowerCase().includes("--cert=") ? e.split("=")[1] : null
         if (certPath !== null) {
             optCert = certPath;
         }
 
-        let privateKeyPath = e.toLowerCase().includes("pk") ? e.split("=")[1] : null
+        let privateKeyPath = e.toLowerCase().includes("--pk=") ? e.split("=")[1] : null
         if (privateKeyPath !== null) {
             optPk = privateKeyPath;
         }
