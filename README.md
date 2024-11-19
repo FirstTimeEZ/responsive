@@ -20,6 +20,12 @@ You can start the `server` with `Node.js`
 node server.js
 ```
 
+![](https://i.imgur.com/xLGqPKN.png)
+
+```
+http://localhost:3000/
+```
+
 ### 404/500 Pages
 
 The server is configured to serve custom `404` and `500` error pages. 
