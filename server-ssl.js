@@ -3,9 +3,6 @@ import { readFile, readFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { join, extname as _extname, dirname } from 'path';
 
-// openssl req -x509 -newkey rsa:2048 -nodes -sha256 -keyout private-key.pem -out certificate.pem -days 365 -subj "//CN=localhost"
-// node server-ssl.js port=443
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const __args = process.argv.slice(2);
@@ -13,8 +10,9 @@ const options = {};
 
 let optPk = null;
 let optCert = null;
-let optRoot = null;
-let optPort = process.env.PORT || 3000;
+let optWebsite = null;
+let optError = null;
+let optPort = process.env.PORT || 443;
 
 loadArguments();
 
@@ -32,7 +30,7 @@ options.cert = readFileSync(optCert);
  * @param {Response} res - The response object to send data back to the client.
  */
 const server = createServer(options, (req, res) => {
-    let filePath = join(__dirname, optRoot, req.url === '/' ? 'index.html' : req.url);
+    let filePath = join(__dirname, optWebsite, req.url === '/' ? 'index.html' : req.url);
 
     const extname = _extname(filePath);
 
@@ -71,7 +69,7 @@ const server = createServer(options, (req, res) => {
     readFile(filePath, (err, content) => {
         if (err) {
             if (err.code === 'ENOENT') {
-                readFile(join(__dirname, '/error/404.html'), (err404, content404) => {
+                readFile(join(__dirname, optError, '/404.html'), (err404, content404) => {
                     if (err404) {
                         res.writeHead(500);
                         res.end('Server Error');
@@ -81,7 +79,7 @@ const server = createServer(options, (req, res) => {
                     }
                 });
             } else {
-                readFile(join(__dirname, '/error/500.html'), (error500, content500) => {
+                readFile(join(__dirname, optError, '/500.html'), (error500, content500) => {
                     if (error500) {
                         res.writeHead(500);
                         res.end('Server Error');
@@ -132,13 +130,19 @@ function loadArguments() {
             optPk = privateKeyPath;
         }
 
-        let rootFolder = e.toLowerCase().includes("--root=") ? e.split("=")[1] : null
-        if (rootFolder !== null) {
-            optRoot = rootFolder;
+        let websiteFolder = e.toLowerCase().includes("--site=") ? e.split("=")[1] : null
+        if (websiteFolder !== null) {
+            optWebsite = websiteFolder;
+        }
+
+        let errorFolder = e.toLowerCase().includes("--error=") ? e.split("=")[1] : null
+        if (errorFolder !== null) {
+            optError = errorFolder;
         }
     });
 
     !optPk && (optPk = 'private-key.pem');
     !optCert && (optCert = 'certificate.pem');
-    !optRoot && (optRoot = 'website');
+    !optWebsite && (optWebsite = 'website');
+    !optError && (optError = 'error');
 }
