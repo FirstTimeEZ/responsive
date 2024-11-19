@@ -9,23 +9,20 @@ import { join, extname as _extname, dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const __args = process.argv.slice(2);
+const options = {};
+
+let optPk = null;
+let optCert = null;
 
 let PORT = process.env.PORT || 3000;
 
-__args.forEach((e) => {
-    let portArg = e.toLowerCase().includes("port") ? e.split("=")[1] : null
-    if (portArg !== null) {
-        PORT = portArg;
-    }
-});
+loadArguments();
 
 !existsSync('private-key.pem') && certificateNotExist();
 !existsSync('certificate.pem') && certificateNotExist();
 
-const options = {
-    key: readFileSync('private-key.pem'),
-    cert: readFileSync('certificate.pem')
-};
+options.key = readFileSync(optPk !== null ? optPk : 'private-key.pem');
+options.cert = readFileSync(optCert !== null ? optCert : 'certificate.pem');
 
 /**
  * Creates an HTTPS server that handles incoming requests.
@@ -116,4 +113,23 @@ function certificateNotExist() {
     console.log(" ");
     console.log('openssl req -x509 -newkey rsa:2048 -nodes -sha256 -keyout private-key.pem -out certificate.pem -days 365 -subj "//CN=localhost"');
     process.exit(1);
+}
+
+function loadArguments() {
+    __args.forEach((e) => {
+        let portArg = e.toLowerCase().includes("port") ? e.split("=")[1] : null
+        if (portArg !== null) {
+            PORT = portArg;
+        }
+
+        let certPath = e.toLowerCase().includes("cert") ? e.split("=")[1] : null
+        if (certPath !== null) {
+            optCert = certPath;
+        }
+
+        let privateKeyPath = e.toLowerCase().includes("pk") ? e.split("=")[1] : null
+        if (privateKeyPath !== null) {
+            optPk = privateKeyPath;
+        }
+    });
 }

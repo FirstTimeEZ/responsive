@@ -58,7 +58,7 @@ Right click and select [`Open Git Bash Here`](https://git-scm.com/downloads/win)
 Run this command
 
 ```
-node server-ssl.js port=443
+node server-ssl.js port=443 cert="certificate.pem" pk="private-key.pem"
 ```
 
 ![](https://i.imgur.com/ULvqsvt.png)
@@ -86,7 +86,7 @@ By default, the server runs on port `3000`
 You can provide a different port as an argument.
 
 ```
-node server-ssl.js port=443
+node server-ssl.js port=443 cert="certificate.pem" pk="private-key.pem"
 ```
 
 You can also set the `PORT` env variable in `Node.js` or modify `server-ssl.js`
