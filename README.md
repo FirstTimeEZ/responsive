@@ -30,6 +30,8 @@ http://localhost:3000/
 
 The server is configured to serve custom `404` and `500` error pages. 
 
+![](https://i.imgur.com/rnQR2pq.png)
+
 If you want to add more specific custom error pages, place them in the `/error` folder.
 
 ### Port
