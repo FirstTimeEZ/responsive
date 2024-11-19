@@ -32,7 +32,9 @@ The server is configured to serve custom `404` and `500` error pages.
 
 ![](https://i.imgur.com/rnQR2pq.png)
 
-If you want to add more specific custom error pages, place them in the `/error` folder.
+Currently everything is treated like a `Server Error` except for `Page Not Found`
+
+If you want to add more specific custom error pages, place them in the `/error` folder and update `server.js`
 
 ### Port
 
