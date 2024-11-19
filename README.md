@@ -40,7 +40,7 @@ If you want to add more specific custom error pages, place them in the `/error` 
 
 By default, the server runs on port `3000`. 
 
-If you want to change the port, you can set the `PORT` environment variable in your `Node.js` environment:
+If you want to change the port, you can set the `PORT` env variable in `Node.js` or modify `server.js`
 
 ```js
 const PORT = process.env.PORT || 3000;
