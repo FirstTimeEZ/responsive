@@ -6,6 +6,21 @@ import { join, extname as _extname, dirname  } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+/**
+ * Creates an HTTP server that handles incoming requests.
+ * 
+ * Note: server.js should not be used in a production environment.
+ * 
+ * For production use, consider using HTTPS by configuring SSL 
+ * certificates to ensure secure communication between the client 
+ * and the server. For more information on creating an HTTPS server, 
+ * please refer to the Node.js documentation: 
+ * https://nodejs.org/api/https.html#httpscreateserveroptions-requestlistener
+ * 
+ * @function
+ * @param {Request} req - The incoming request object.
+ * @param {Response} res - The response object to send data back to the client.
+ */
 const server = createServer((req, res) => {
     let filePath = join(__dirname, 'website', req.url === '/' ? 'index.html' : req.url);
 
