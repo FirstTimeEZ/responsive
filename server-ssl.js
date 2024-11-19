@@ -1,5 +1,5 @@
 import { createServer } from 'https';
-import { readFile, readFileSync, existsSync, constants } from 'fs';
+import { readFile, readFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { join, extname as _extname, dirname } from 'path';
 
