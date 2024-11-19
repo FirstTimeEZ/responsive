@@ -2,12 +2,6 @@
 
 A simple responsive website made with `HTML` and `CSS` and `Javascript`
 
-# Preview
-
-![preview](https://github.com/user-attachments/assets/585b558c-286f-4345-b32d-ab0357c61e79)
-
-# Responsive
-
 ![responsive](https://github.com/user-attachments/assets/2672840e-4e02-44a2-9606-8d22c23bcaed)
 
 -------------------------------
@@ -40,27 +34,35 @@ The `index.html` file uses `js/main.js`, which is responsible for loading the Ja
 
 -------------------------------
 
-# Development Server
-
-You can use `server.js` to start a [`Node.js`](https://nodejs.org/en) server on your local machine for development.
+# SSL Server
 
 The server itself is included with [`Node.js`](https://nodejs.org/en), so you should install the most recent version.
 
-### Start
+### Create SSL Certificate
 
-Open the command prompt in the same folder as `server.js` and run this command
+If you don't have a `certificate` and `private key` in `pem format` and are developing locally you can create one
 
-```
-node server.js
-```
-
-![](https://i.imgur.com/xLGqPKN.png)
-
-You can then view the website in your browser at `localhost:PORT`
+Open the [`Open Git Bash Here`](https://git-scm.com/downloads/win) in the same folder as `server-ssl.js` and run this command
 
 ```
-http://localhost:3000/
+openssl req -x509 -newkey rsa:2048 -nodes -sha256 -keyout private-key.pem -out certificate.pem -days 365 -subj "//CN=localhost"
 ```
+
+### Start the Server
+
+Open the [`Open Git Bash Here`](https://git-scm.com/downloads/win) in the same folder as `server-ssl.js` and run this command
+
+```
+node server-ssl.js port=443
+```
+
+![](https://i.imgur.com/ULvqsvt.png)
+
+You can then view the website in your browser at `https://localhost`
+
+Your browser may warn you the certificate is self signed, this is normal.
+
+If you changed the port you have to use `https://localhost:PORT/`
 
 ### 404/500 Pages
 
@@ -74,10 +76,12 @@ If you want to add more specific custom error pages, place them in the `/error` 
 
 ### Port
 
-By default, the server runs on port `3000`. 
+By default, the server runs on port `3000`
 
-If you want to change the port, you can set the `PORT` env variable in `Node.js` or modify `server.js`
+You can provide a different port as an argument.
 
-```js
-const PORT = process.env.PORT || 3000;
 ```
+node server-ssl.js port=443
+```
+
+You can also set the `PORT` env variable in `Node.js` or modify `server-ssl.js`
