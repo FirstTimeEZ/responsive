@@ -38,7 +38,7 @@ const PORT = process.env.PORT || 3000;
 
 # Structure
 
-The website's files are organized within the `/website` folder, which contains subdirectories for images, JavaScript files, and styles, along with an index.html file that serves as the main entry point.
+The website's files are organized within the `/website` folder, which contains subdirectories for images, JavaScript files, and styles. 
  
 ```
 /root
