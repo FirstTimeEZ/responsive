@@ -1,6 +1,6 @@
 # Responsive Website
 
-A simple responsive website made with `HTML` and `CSS` and `Javscript`
+A simple responsive website made with `HTML` and `CSS` and `Javascript`
 
 # Preview
 
