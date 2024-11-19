@@ -51,6 +51,15 @@ Run this command
 openssl req -x509 -newkey rsa:2048 -nodes -sha256 -keyout private-key.pem -out certificate.pem -days 365 -subj "//CN=localhost"
 ```
 
+### Options
+
+| Option       | Description                                      | Default Value         |
+|--------------|--------------------------------------------------|-----------------------|
+| `--port=`    | Specifies the port number | `3000` |
+| `--cert=`    | Specifies the path to the SSL certificate file. | `"certificate.pem"` |
+| `--pk=`      | Specifies the path to the private key file associated with the SSL certificate. | `"private-key.pem"` |
+| `--root=`    | Specifies the root directory for the website files. | `"website"` |
+
 ### Start the Server
 
 Right click and select [`Open Git Bash Here`](https://git-scm.com/downloads/win) in the same folder as `server-ssl.js`

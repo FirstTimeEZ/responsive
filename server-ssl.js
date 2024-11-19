@@ -13,6 +13,7 @@ const options = {};
 
 let optPk = null;
 let optCert = null;
+let optRoot = null;
 let optPort = process.env.PORT || 3000;
 
 loadArguments();
@@ -31,7 +32,7 @@ options.cert = readFileSync(optCert);
  * @param {Response} res - The response object to send data back to the client.
  */
 const server = createServer(options, (req, res) => {
-    let filePath = join(__dirname, 'website', req.url === '/' ? 'index.html' : req.url);
+    let filePath = join(__dirname, optRoot, req.url === '/' ? 'index.html' : req.url);
 
     const extname = _extname(filePath);
 
@@ -130,8 +131,14 @@ function loadArguments() {
         if (privateKeyPath !== null) {
             optPk = privateKeyPath;
         }
+
+        let rootFolder = e.toLowerCase().includes("--root=") ? e.split("=")[1] : null
+        if (rootFolder !== null) {
+            optRoot = rootFolder;
+        }
     });
 
     !optPk && (optPk = 'private-key.pem');
     !optCert && (optCert = 'certificate.pem');
+    !optRoot && (optRoot = 'website');
 }
