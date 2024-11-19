@@ -27,7 +27,8 @@ The website's files are organized within the `/website` folder, which contains s
 │   │   └── responsive.css
 │   └── index.html
 │
-└── server.js
+├── server.js
+└── server-ssl.js
 ```
 
 The `index.html` file uses `js/main.js`, which is responsible for loading the JavaScript modules from the `js/exports` folder.
