@@ -18,11 +18,14 @@ let PORT = process.env.PORT || 3000;
 
 loadArguments();
 
-!existsSync('private-key.pem') && certificateNotExist();
-!existsSync('certificate.pem') && certificateNotExist();
+optPk = optPk !== null ? optPk : 'private-key.pem';
+optCert = optCert !== null ? optCert : 'certificate.pem';
 
-options.key = readFileSync(optPk !== null ? optPk : 'private-key.pem');
-options.cert = readFileSync(optCert !== null ? optCert : 'certificate.pem');
+!existsSync(optPk) && certificateNotExist();
+!existsSync(optCert) && certificateNotExist();
+
+options.key = readFileSync(optPk);
+options.cert = readFileSync(optCert);
 
 /**
  * Creates an HTTPS server that handles incoming requests.
